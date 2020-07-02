@@ -23,7 +23,7 @@ const data1 = Array.from(new Array(3)).map(() => ({
 }));
 
 
-const data = [{ text: '数据查询', icon: require('../assets/radio-o.png') },
+const data = [{ text: '首页', icon: require('../assets/radio-o.png') },
 { text: '机器人小涵', icon: require('../assets/saying.gif') },
 { text: '自然语言查询', icon: require('../assets/java.png') },
 { text: '查询', icon: require('../assets/yy_btn.png') }]

@@ -31,7 +31,7 @@ const menuData = [
     tintColor:"#33A3F4",
   },
   {
-    name:'数据查询',
+    name:'资产地图',
     key:'Query',
     path:'/Query',
     icon: sort1,
@@ -40,7 +40,7 @@ const menuData = [
     tintColor:"#33A3F4",
   },
   {
-    name:'语音AI',
+    name:'资产发现',
     key:'AI',
     path:'/AI',
     icon: ai1,
@@ -49,7 +49,7 @@ const menuData = [
     tintColor:"#33A3F4",
   },
   {
-    name:'Chat',
+    name:'资产预警',
     key:'Chat',
     path:'/Chat',
     icon: chart1,

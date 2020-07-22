@@ -19,55 +19,55 @@ import me2 from '../assets/my_on.png'
 /** 
  * tabbar菜单
  */
- 
+
 const menuData = [
   {
-    name:'主页',
-    key:'Home',
-    path:'/Home',
+    name: '主页',
+    key: 'Home',
+    path: '/Home',
     icon: home1,
-    selectedIcon:home2,
-    unselectedTintColor:"#949494",
-    tintColor:"#33A3F4",
+    selectedIcon: home2,
+    unselectedTintColor: "#949494",
+    tintColor: "#33A3F4",
   },
   {
-    name:'资产地图',
-    key:'Query',
-    path:'/Query',
+    name: '资产地图',
+    key: 'AssetMap',
+    path: '/Asset/AssetMapGaoDe',
     icon: sort1,
-    selectedIcon:sort2,
-    unselectedTintColor:"#949494",
-    tintColor:"#33A3F4",
+    selectedIcon: sort2,
+    unselectedTintColor: "#949494",
+    tintColor: "#33A3F4",
   },
   {
-    name:'资产发现',
-    key:'AI',
-    path:'/AI',
+    name: '资产发现',
+    key: 'AI',
+    path: '/AI',
     icon: ai1,
-    selectedIcon:ai2,
-    unselectedTintColor:"#949494",
-    tintColor:"#33A3F4",
+    selectedIcon: ai2,
+    unselectedTintColor: "#949494",
+    tintColor: "#33A3F4",
   },
   {
-    name:'资产预警',
-    key:'Chat',
-    path:'/Chat',
+    name: '资产预警',
+    key: 'Chat',
+    path: '/Chat',
     icon: chart1,
-    selectedIcon:chart2,
-    unselectedTintColor:"#949494",
-    tintColor:"#33A3F4",
+    selectedIcon: chart2,
+    unselectedTintColor: "#949494",
+    tintColor: "#33A3F4",
   },
   {
-    name:'我的',
-    key:'My',
-    path:'/My',
+    name: '我的',
+    key: 'My',
+    path: '/My',
     icon: me1,
-    selectedIcon:me2,
-    unselectedTintColor:"#949494",
-    tintColor:"#33A3F4",
+    selectedIcon: me2,
+    unselectedTintColor: "#949494",
+    tintColor: "#33A3F4",
   },
 ]
- 
+
 export {
   menuData
 } 

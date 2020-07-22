@@ -1,8 +1,8 @@
 import { TabBar, ListView } from 'antd-mobile';
-import ReactDOM   from 'react-dom';
-import React        from 'react';
+import ReactDOM from 'react-dom';
+import React from 'react';
 import QueryClassList from './QueryClassList.jsx';
-import LocalStorge  from '../util/LogcalStorge.jsx';
+import LocalStorge from '../util/LogcalStorge.jsx';
 const localStorge = new LocalStorge();
 
 import WxTabBar from '../components/TabBar';
@@ -176,43 +176,41 @@ export default class TabBarExample extends React.Component {
     };
   }
   componentDidMount() {
-    let userInfo=localStorge.getStorage('userInfo');
-    if(undefined==userInfo || null==userInfo || ''==userInfo){
+    let userInfo = localStorge.getStorage('userInfo');
+    if (undefined == userInfo || null == userInfo || '' == userInfo) {
       this.setState({
         selectedTab: "yellowTab"
       });
-     // window.location.href="#/Login";
+      // window.location.href="#/Login";
     }
   }
   renderContent(pageText) {
-    if(pageText=='query')
-    {
+    if (pageText == 'query') {
       return (
-        <QueryClassList/>
+        <QueryClassList />
       )
-       
-    }else if (pageText=='AI'){
+
+    } else if (pageText == 'AI') {
 
       return (
         <div>
-          <AI/>
+          <AI />
         </div>
       )
-    }else if (pageText=='Chat'){
+    } else if (pageText == 'Chat') {
 
       return (
         <div>
-          <Chat/>
+          <Chat />
         </div>
       )
-    }else if(pageText=='My')
-    {
+    } else if (pageText == 'My') {
       return (<div>
-        <My callbackParent={this.onChildChanged}/>
+        <My callbackParent={this.onChildChanged} />
       </div>)
     }
   }
-  onChildChanged=(selectedTab)=>{
+  onChildChanged = (selectedTab) => {
     this.setState({
       selectedTab: selectedTab
     });

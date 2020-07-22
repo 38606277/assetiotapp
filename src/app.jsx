@@ -10,7 +10,7 @@ import './app.css'
 const ListUser = Loadable({
     loader: () => import('./page/ListUser.jsx'),
     loading: loading,
-    delay:3000
+    delay: 3000
 });
 
 import Login from "./page/Login.jsx";
@@ -64,33 +64,33 @@ const Chat = Loadable({
 const IndexSearch = Loadable({
     loader: () => import('./page/indexSearch.jsx'),
     loading: loading,
-    delay:3000
+    delay: 3000
 });
 const My = Loadable({
     loader: () => import('./page/My.jsx'),
     loading: loading,
-    delay:3000
+    delay: 3000
 });
 const Home = Loadable({
     loader: () => import('./page/home.jsx'),
     loading: loading,
-    delay:3000
+    delay: 3000
 });
 
 const Layout = Loadable({
     loader: () => import('./page/Layout.jsx'),
     loading: loading,
-    delay:3000
+    delay: 3000
 });
 const UploadInfo = Loadable({
     loader: () => import('./page/UploadInfo.jsx'),
     loading: loading,
-    delay:3000
+    delay: 3000
 });
 const Demo = Loadable({
     loader: () => import('./page/ai/demo.jsx'),
     loading: loading,
-    delay:3000
+    delay: 3000
 });
 // function loadPage(url){
 //    return Loadable({
@@ -99,6 +99,11 @@ const Demo = Loadable({
 //    })
 // }
 
+const AssetRouter = Loadable({
+    loader: () => import(/* webpackChunkName: "AssetRouter" */ './page/asset/AssetRouter.jsx'),
+    loading: loading,
+    delay: 3000
+});
 
 class App extends React.Component {
 
@@ -111,38 +116,39 @@ class App extends React.Component {
 
     render() {
         let LayoutRouter = (
-                <Layout>
-                    <Switch>
-                        <Route exact path="/" component={Home} />
-                        <Route path="/ListUser" component={ListUser} />
-                        <Route path="/Main" component={Main} />
-                        <Route path="/Home" component={Home} />
-                        <Route path="/AI" component={AI} />
-                        <Route path="/Chat" component={Chat} />
-                        <Route path="/My" component={My} />
-                        <Route path="/Query" component={QueryClassList} />
-                        <Route path="/QueryList/:class_id" component={QueryList} />
-                        <Route path="/QueryInParam/:class_id/:qry_id" component={QueryInParam} />
-                        <Route path="/QueryResult/:class_id/:qry_id/:inParam" component={QueryResult} />
-                        <Route path="/Login" component={Login} />
-                        <Route path="/AddUser" component={Loadable({
-                                                                    loader: () => import('./page/AddUser.jsx'),
-                                                                    loading: loading
-                                                                })} />
-                        <Route path="/UserPayList" component={UserPayList} />
-                        <Route path="/UserBill" component={UserBill} />
-                        <Route path="/IndexSearch" component={IndexSearch} />
-                        <Route path="/UploadInfo" component={UploadInfo} />
-                        <Route path="/Demo" component={Demo} />
-                    </Switch>
-                </Layout>
-            );
+            <Layout>
+                <Switch>
+                    <Route exact path="/" component={Home} />
+                    <Route path="/ListUser" component={ListUser} />
+                    <Route path="/Main" component={Main} />
+                    <Route path="/Home" component={Home} />
+                    <Route path="/AI" component={AI} />
+                    <Route path="/Chat" component={Chat} />
+                    <Route path="/My" component={My} />
+                    <Route path="/Query" component={QueryClassList} />
+                    <Route path="/QueryList/:class_id" component={QueryList} />
+                    <Route path="/QueryInParam/:class_id/:qry_id" component={QueryInParam} />
+                    <Route path="/QueryResult/:class_id/:qry_id/:inParam" component={QueryResult} />
+                    <Route path="/Login" component={Login} />
+                    <Route path="/AddUser" component={Loadable({
+                        loader: () => import('./page/AddUser.jsx'),
+                        loading: loading
+                    })} />
+                    <Route path="/UserPayList" component={UserPayList} />
+                    <Route path="/UserBill" component={UserBill} />
+                    <Route path="/IndexSearch" component={IndexSearch} />
+                    <Route path="/UploadInfo" component={UploadInfo} />
+                    <Route path="/Demo" component={Demo} />
+                    <Route path="/Asset" component={AssetRouter} />
+                </Switch>
+            </Layout>
+        );
         return (
-                <Router>
-                    <Switch>
-                        <Route path="/" render={props=>LayoutRouter} />
-                    </Switch>
-                </Router>
+            <Router>
+                <Switch>
+                    <Route path="/" render={props => LayoutRouter} />
+                </Switch>
+            </Router>
         )
     }
 }

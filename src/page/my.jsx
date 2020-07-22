@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { List, WhiteSpace, WingBlank, Checkbox, SwipeAction,Switch, NavBar, Icon, InputItem, Toast, Button } from 'antd-mobile';
+import { List, WhiteSpace, WingBlank, Checkbox, SwipeAction, Switch, NavBar, Icon, InputItem, Toast, Button } from 'antd-mobile';
 import 'antd-mobile/dist/antd-mobile.css';
 import HttpService from '../util/HttpService.jsx';
 import UserService from '../service/user-service.jsx';
@@ -11,7 +11,7 @@ const userService = new UserService();
 const Item = List.Item;
 const Brief = Item.Brief;
 import './my.scss';
-const url=window.getServerUrl();
+const url = window.getServerUrl();
 
 export default class My extends React.Component {
   constructor(props) {
@@ -23,21 +23,21 @@ export default class My extends React.Component {
       class_id: this.props.class_id,
       data: [],
       isLogin: false,
-      icon:''
+      icon: ''
     }
   }
   componentDidMount() {
     let userInfo = localStorge.getStorage('userInfo');
     if (undefined != userInfo && null != userInfo && '' != userInfo) {
-      let urls='./../src/assets/icon/default.png';
-          if(userInfo.icon!=null && userInfo.icon!=''){
-            urls=url+"/report/"+userInfo.icon
-          }
+      let urls = './../src/assets/icon/default.png';
+      if (userInfo.icon != null && userInfo.icon != '') {
+        urls = url + "/report/" + userInfo.icon
+      }
       this.setState({
         isLogin: true,
         UserCode: userInfo.userCode,
         Pwd: userInfo.pwd,
-        icon:urls
+        icon: urls
       });
     }
   }
@@ -71,7 +71,7 @@ export default class My extends React.Component {
             if (undefined != response.data && null != response.data) {
               let datas = response.data;
               localStorge.setStorage('userInfo', datas);
-              this.setState({ isLogin: true, icon:datas.icon==undefined?'./../src/assets/icon/default.png':url+"/report/"+datas.icon});
+              this.setState({ isLogin: true, icon: datas.icon == undefined ? './../src/assets/icon/default.png' : url + "/report/" + datas.icon });
             } else {
               Toast.fail("登录失败，请检查用户名与密码");
             }
@@ -93,7 +93,7 @@ export default class My extends React.Component {
     this.setState({ isLogin: false, address: null });
     //window.location.href="#/Home";
   }
-  updateImg(){
+  updateImg() {
     window.location.href = "#/UploadInfo";
   }
   //设置上一窗口的数据进行显示，返回上一级
@@ -124,11 +124,11 @@ export default class My extends React.Component {
           <div className="grzx_toub_beij"><img src={require("../assets/sandnab.jpg")} /></div>
           <div className="grzx_toux_fus">
             <div className="of">
-             {this.state.UserCode==''?<img src={this.state.icon}/>:
-              <img src={this.state.icon} onClick={()=>this.updateImg()}/>
+              {this.state.UserCode == '' ? <img src={this.state.icon} /> :
+                <img src={this.state.icon} onClick={() => this.updateImg()} />
               }
-            </div> 
-         </div>
+            </div>
+          </div>
         </div>
         {this.state.isLogin == false ?
           <List renderHeader={() => '我的登录信息'}>
@@ -160,7 +160,7 @@ export default class My extends React.Component {
           :
           <List renderHeader={() => '登录信息'} >
             <Item thumb={require("../assets/icon/user.png")} extra={this.state.UserCode}><span style={{ fontSize: '14px' }}> 用户名 </span></Item>
-            <Item thumb={require("../assets/icon/pwd.png")}  extra={this.state.Pwd}><span style={{ fontSize: '14px' }}> 密码 </span></Item>
+            <Item thumb={require("../assets/icon/pwd.png")} extra={this.state.Pwd}><span style={{ fontSize: '14px' }}> 密码 </span></Item>
             {/* <Item thumb={require("../assets/icon/pwd.png")}  extra={<Link to="UploadInfo" >修改图像</Link>}><span style={{ fontSize: '14px' }}> 图像 </span></Item> */}
             <Item>
               <div align="center">
@@ -171,8 +171,8 @@ export default class My extends React.Component {
         }
 
         <List renderHeader={() => '设置'} >
-          <Item extra={<Switch checked='1'/>}> 通知</Item>
-          <Item extra={<Switch checked='1'/>}> 自动登录</Item>
+          <Item extra={<Switch checked='1' />}> 通知</Item>
+          <Item extra={<Switch checked='1' />}> 自动登录</Item>
 
         </List>
         <List >

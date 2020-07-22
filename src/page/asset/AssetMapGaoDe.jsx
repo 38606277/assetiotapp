@@ -1,10 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { SearchBar, List, WhiteSpace, WingBlank, Checkbox, SwipeAction, Switch, NavBar, Icon, InputItem, Toast, Button, Modal, } from 'antd-mobile';
+import { SearchBar, List, WhiteSpace, WingBlank, Checkbox, SwipeAction, Switch, NavBar, Icon, InputItem, Toast, Button, } from 'antd-mobile';
 import { Widget, addResponseMessage, toggleWidget, dropMessages, addLinkSnippet, addUserMessage, renderCustomComponent } from 'react-chat-widget';
 import AMapLoader from '@amap/amap-jsapi-loader';
 import 'antd-mobile/dist/antd-mobile.css';
 import HttpService from '../../util/HttpService.jsx';
+import './AssetMapGaoDe.css';
+const Item = List.Item;
+const Brief = Item.Brief;
 
 class AssetMapGaoDe extends React.Component {
 
@@ -94,10 +97,12 @@ class AssetMapGaoDe extends React.Component {
 
                     _this.initMapData(_this.state.map, _this.state.AMap);
 
-                    if (isSearch) {
-                        this.setState({
-                            listModal: true
-                        })
+                    if (isSearch && _this.state.panelDisplay == 'none') {
+                        _this.setState(
+                            {
+                                panelDisplay: 'block',
+                            }
+                        )
                     }
                 } else {
                     addResponseMessage(response.message);
@@ -107,7 +112,14 @@ class AssetMapGaoDe extends React.Component {
 
     getAddr = (gateway) => {
 
-        //获取网关下的资产数据
+
+        if (this.state.panelDisplay == 'none') {
+            this.setState(
+                {
+                    panelDisplay: 'block',
+                }
+            )
+        }//获取网关下的资产数据
         let param = { gateway_id: gateway.gateway_id };
         HttpService.post('reportServer/asset/listEamAssetByGatewayId', JSON.stringify(param)).then(response => {
 
@@ -167,6 +179,7 @@ class AssetMapGaoDe extends React.Component {
     onChange = (value) => {
         this.setState({ searchValue: value });
     };
+
     clear = () => {
         this.setState({ searchValue: '' });
     };
@@ -183,34 +196,34 @@ class AssetMapGaoDe extends React.Component {
         });
     }
 
+    togglePanel = () => {
+        if (this.state.panelDisplay != 'none') {
+            this.setState(
+                {
+                    panelDisplay: 'none',
+                }
+            )
+        } else {
+            this.setState(
+                {
+                    panelDisplay: 'block',
+                }
+            )
 
-
-    showModal = (key, e) => {
-
-        console.log('key', e)
-        // e.preventDefault(); // 修复 Android 上点击穿透
-        this.setState({
-            [key]: true,
-        });
-    }
-
-    onClose = key => () => {
-        this.setState({
-            [key]: false,
-        });
-    }
-
-    onWrapTouchStart = (e) => {
-        // fix touch to scroll background page on iOS
-        if (!/iPhone|iPod|iPad/i.test(navigator.userAgent)) {
-            return;
-        }
-        const pNode = closest(e.target, '.am-modal-content');
-        if (!pNode) {
-            e.preventDefault();
         }
     }
 
+
+    onGatewayItemClick = (gateway) => {
+        this.setState({
+            showDetailFromList: true
+        })
+        this.getAddr(gateway);
+        let AMap = this.state.AMap;
+        this.state.map.setZoom(13) // [3,19]
+        this.state.map.panTo(new AMap.LngLat(gateway.lng, gateway.rng));
+
+    }
 
     render() {
         return (
@@ -234,28 +247,61 @@ class AssetMapGaoDe extends React.Component {
                     onChange={this.onChange}
                 />
 
-                <div id="mapContainer" style={{ height: "400px" }}></div>
+                <div id="mapContainer" style={{ height: (document.documentElement.clientHeight - 139 - (this.state.panelDisplay == 'none' ? 0 : document.documentElement.clientHeight * 0.45)) }}></div>
 
 
-                <Modal
-                    popup
-                    visible={this.state.listModal}
-                    onClose={this.onClose('listModal')}
-                    animationType="slide-up"
-                    afterClose={() => { console.log('afterClose') }}
-                >
-                    <List renderHeader={() => <div>委托买入</div>} className="popup-list">
-                        {['股票名称', '股票代码', '买入价格'].map((i, index) => (
-                            <List.Item key={index}>{i}</List.Item>
+                <div style={{ display: this.state.panelDisplay, width: '100%', overflow: 'auto', height: (document.documentElement.clientHeight * 0.45), position: 'fixed', zIndex: '1', bottom: '50px', backgroundColor: '#ffffff' }}>
+
+
+                    {this.state.showDetail ? (<List renderHeader={() => <div>
+                        资产信息
+                    <Icon style={{ float: 'right' }} type='cross' onClick={() => { this.togglePanel() }} />
+                    </div>} >
+                        {this.state.assetList.map((item, index) => (
+                            <Item key={index}>
+                                <div>
+                                    资产标签：{item.asset_tag}<br />
+                                                                物联网标签：{item.iot_num}<br />
+                                                                资产原值：{item.cost}<br />
+                                                                资产净额：{item.netQuota}<br />
+                                                                责任人：{item.dutyName}<br />
+                                                                启用日期：{item.startDate}<br />
+                                    {item.electricity != null &&
+                                        (<div>电压：{item.electricity}V<br /></div>)
+                                    }
+
+                                    {item.receive_time != null &&
+                                        (<div> 更新于：{item.receive_time}<br /></div>)
+                                    }
+
+
+                                </div>
+                            </Item>
                         ))}
-                        <List.Item>
-                            <Button type="primary" onClick={this.onClose('listModal')}>买入</Button>
-                        </List.Item>
-                    </List>
-                </Modal>
+                    </List>) : (<List renderHeader={() => <div>
+                        网关信息
+<Icon style={{ float: 'right' }} type='cross' onClick={() => { this.togglePanel() }} />
+                    </div>} >
+                        {this.state.dataList.map((item, index) => (
+                            <Item key={index}>
+                                <div>
+                                    <a onClick={() => this.onGatewayItemClick(item)} style={{ color: '#3385ff' }}>
+                                        {item.gateway_name}
+                                    </a><br />
+                                    网关编号：{item.gateway_id}<br />
+            关联资产数：{item.assetCount}<br />
+                                    {item.address}
+                                </div>
+                            </Item>
+                        ))}
+                    </List>)}
 
 
-            </div>
+                </div>
+
+            </div >
+
+
         )
     }
 }

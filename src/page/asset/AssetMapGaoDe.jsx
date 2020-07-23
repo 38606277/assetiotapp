@@ -31,7 +31,6 @@ class AssetMapGaoDe extends React.Component {
             markers: [],
             showDetailFromList: false,
             searchValue: '',
-            listModal: false,
         }
     }
 
@@ -149,7 +148,7 @@ class AssetMapGaoDe extends React.Component {
             marker.on('click', function (e) {
                 _this.setState({
                     showDetailFromList: false,
-                    listModal: true
+
                 })
 
                 //e.preventDefault(); // 修复 Android 上点击穿透
@@ -250,51 +249,65 @@ class AssetMapGaoDe extends React.Component {
                 <div id="mapContainer" style={{ height: (document.documentElement.clientHeight - 139 - (this.state.panelDisplay == 'none' ? 0 : document.documentElement.clientHeight * 0.45)) }}></div>
 
 
-                <div style={{ display: this.state.panelDisplay, width: '100%', overflow: 'auto', height: (document.documentElement.clientHeight * 0.45), position: 'fixed', zIndex: '1', bottom: '50px', backgroundColor: '#ffffff' }}>
+                <div style={{ display: this.state.panelDisplay, width: '100%', height: (document.documentElement.clientHeight * 0.45), position: 'fixed', zIndex: '1', bottom: '50px', backgroundColor: '#ffffff' }}>
+
+                    <div style={{ padding: '15px', textAlign: 'center' }}>
+                        {this.state.showDetail && this.state.showDetailFromList ? (<Icon style={{ float: 'left', lineHeight: "36px" }} type='left' onClick={() => { this.setState({ showDetail: false }) }} />) : (<span />)}
+                        <span style={{ fontSize: '17px' }}> {this.state.showDetail ? `${this.state.gateway.gateway_name}详情` : "网关列表"}</span>
+                        <Icon style={{ float: 'right', lineHeight: "36px" }} type='cross' onClick={() => { this.togglePanel() }} />
+                    </div>
 
 
-                    {this.state.showDetail ? (<List renderHeader={() => <div>
-                        资产信息
-                    <Icon style={{ float: 'right' }} type='cross' onClick={() => { this.togglePanel() }} />
-                    </div>} >
-                        {this.state.assetList.map((item, index) => (
-                            <Item key={index}>
-                                <div>
-                                    资产标签：{item.asset_tag}<br />
+                    <div style={{ width: '100%', overflow: 'auto', height: (document.documentElement.clientHeight * 0.45 - 46) }}>
+
+                        {this.state.showDetail ? (<List renderHeader={() => <div>
+
+                            <a href={`#/asset/gatewayEdit/update/${this.state.gateway.gateway_id}`}>
+                                {this.state.gateway.gateway_name}
+
+                            </a>
+                            <div style={{ marginTop: '5px' }}>{this.state.gateway.address}</div>
+                            <div style={{ marginTop: '5px' }}>
+                                经度:{this.state.gateway.lng} &nbsp;&nbsp;&nbsp;&nbsp; 纬度:{this.state.gateway.rng}
+                            </div>
+
+                        </div>} >
+                            {this.state.assetList.map((item, index) => (
+                                <Item key={index}>
+                                    <div style={{ fontSize: '15px' }}>
+                                        资产标签：{item.asset_tag}<br />
                                                                 物联网标签：{item.iot_num}<br />
                                                                 资产原值：{item.cost}<br />
                                                                 资产净额：{item.netQuota}<br />
                                                                 责任人：{item.dutyName}<br />
                                                                 启用日期：{item.startDate}<br />
-                                    {item.electricity != null &&
-                                        (<div>电压：{item.electricity}V<br /></div>)
-                                    }
+                                        {item.electricity != null &&
+                                            (<div>电压：{item.electricity}V<br /></div>)
+                                        }
 
-                                    {item.receive_time != null &&
-                                        (<div> 更新于：{item.receive_time}<br /></div>)
-                                    }
+                                        {item.receive_time != null &&
+                                            (<div> 更新于：{item.receive_time}<br /></div>)
+                                        }
 
 
-                                </div>
-                            </Item>
-                        ))}
-                    </List>) : (<List renderHeader={() => <div>
-                        网关信息
-<Icon style={{ float: 'right' }} type='cross' onClick={() => { this.togglePanel() }} />
-                    </div>} >
-                        {this.state.dataList.map((item, index) => (
-                            <Item key={index}>
-                                <div>
-                                    <a onClick={() => this.onGatewayItemClick(item)} style={{ color: '#3385ff' }}>
-                                        {item.gateway_name}
-                                    </a><br />
+                                    </div>
+                                </Item>
+                            ))}
+                        </List>) : (<List  >
+                            {this.state.dataList.map((item, index) => (
+                                <Item key={index}>
+                                    <div style={{ fontSize: '15px' }}>
+                                        <a onClick={() => this.onGatewayItemClick(item)} style={{ color: '#3385ff' }}>
+                                            {item.gateway_name}
+                                        </a><br />
                                     网关编号：{item.gateway_id}<br />
             关联资产数：{item.assetCount}<br />
-                                    {item.address}
-                                </div>
-                            </Item>
-                        ))}
-                    </List>)}
+                                        {item.address}
+                                    </div>
+                                </Item>
+                            ))}
+                        </List>)}
+                    </div>
 
 
                 </div>

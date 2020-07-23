@@ -1,5 +1,5 @@
 import React from 'react';
-import { List, WhiteSpace, WingBlank, SearchBar, Carousel,Checkbox, Button, NavBar, Icon, InputItem, Grid, Card } from 'antd-mobile';
+import { List, WhiteSpace, WingBlank, SearchBar, Carousel, Checkbox, Button, NavBar, Icon, InputItem, Grid, Card, Flex } from 'antd-mobile';
 import 'antd-mobile/dist/antd-mobile.css';
 import User from '../service/user-service.jsx'
 import LocalStorge from '../util/LogcalStorge.jsx';
@@ -34,7 +34,7 @@ export default class Home extends React.Component {
     const renderResult = null;
     this.state = {
       paramClass: null,
-      selectedTab:this.props.selectedTab,
+      selectedTab: this.props.selectedTab,
       data: ['1', '2', '3'],
       imgHeight: 196,
     }
@@ -50,15 +50,20 @@ export default class Home extends React.Component {
     var myChart = echarts.init(document.getElementById('main'));
     // 绘制图表
     myChart.setOption({
-      
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+          type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+        }
+      },
       xAxis: {
-        data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"]
+        data: ["邯郸", "石家庄", "邢台", "张家口", "成德", "保定", "衡水", "沧州", "廊坊", "秦皇岛", "唐山"]
       },
       yAxis: {},
       series: [{
-        name: '销量',
+        name: '资产数量',
         type: 'bar',
-        data: [5, 20, 36, 10, 10, 20]
+        data: [34, 26, 0, 0, 0, 0, 0, 0, 0, 0, 0]
       }]
     });
   }
@@ -68,21 +73,21 @@ export default class Home extends React.Component {
   onSearch() {
     window.location.href = "#/AI";
   }
-  
-  toAI(){
+
+  toAI() {
     window.location.href = "#/Chat";
   }
   onClick = ((el, index) => {
     alert(el);
   })
-  onChangeClick(e,index){
-    if(index==0){
+  onChangeClick(e, index) {
+    if (index == 0) {
       window.location.href = "#/Query";
-    }else if(index==1){
+    } else if (index == 1) {
       window.location.href = "#/AI";
-    }else if(index==2){
+    } else if (index == 2) {
       window.location.href = "#/Chat";
-    }else if(index==3){
+    } else if (index == 3) {
       window.location.href = "#/My";
     }
   }
@@ -91,49 +96,81 @@ export default class Home extends React.Component {
     return (
       <div>
         <div className="headerBar">
-         <CommonSearch onSearch={() => { this.onSearch() }}  toAI={()=>this.toAI()}/>
-         </div>
+          <CommonSearch onSearch={() => { this.onSearch() }} toAI={() => this.toAI()} />
+        </div>
         {/* <Grid data={data1} columnNum={3} itemStyle={{ height: '150px', background: 'rgba(0,0,0,.05)' }} /> */}
         {/* <div style={{marginTop:'20px'}}>
           <Grid data={data} columnNum={4} hasLine={false} activeStyle={true} square={true} 
           onClick={(e,index) => this.onChangeClick(e,index)} />
         </div> */}
 
-        <Carousel style={{marginTop:'40px'}}
+        <Carousel style={{ marginTop: '40px' }}
           autoplay={false}
           infinite
           beforeChange={(from, to) => console.log(`slide from ${from} to ${to}`)}
           afterChange={index => console.log('slide to', index)}
         >
-            <a
-              href="#/Demo"
-              style={{ display: 'inline-block', width: '100%', height: this.state.imgHeight }}
-            >
-              <img
-                src={require("../assets/banner4.png")} 
-                alt=""
-                style={{ width: '100%', verticalAlign: 'top',height:'176px' }}
-                onLoad={() => {
-                  // fire window resize event to change height
-                  window.dispatchEvent(new Event('resize'));
-                  this.setState({ imgHeight: '20px' });
-                }}
-              />
-            </a>
-           
+          <a
+            href="#/Demo"
+            style={{ display: 'inline-block', width: '100%', height: this.state.imgHeight }}
+          >
+            <img
+              src={require("../assets/banner4.png")}
+              alt=""
+              style={{ width: '100%', verticalAlign: 'top', height: '176px' }}
+              onLoad={() => {
+                // fire window resize event to change height
+                window.dispatchEvent(new Event('resize'));
+                this.setState({ imgHeight: '20px' });
+              }}
+            />
+          </a>
+
 
         </Carousel>
         <WhiteSpace size="lg" />
-        <QueryClassList/>
-        
-        <Card full >
-        <Card.Header style={{fontSize:'14px'}}
-            title="收入情况"
-           
-            extra={<span><Icon type='right' /></span>}
+        {/* <QueryClassList /> */}
+
+
+        <Card  >
+          <Card.Header style={{ fontSize: '14px' }}
+            title="资产明细"
+            extra={
+              <span style={{ fontSize: 'xx-small', color: '#cccccc' }}>实时更新 2020-05-12 11:23:43</span>
+            }
           />
           <Card.Body>
-            <div id="main" style={{ width: 300, height: 240 }}></div>
+            <Flex style={{ textAlign: "center" }}>
+              <Flex.Item>
+
+                <div style={{ fontSize: 'small', color: ' #999999', marginTop: '5px' }} >资产数量</div>
+                <div style={{ fontSize: 'large', color: 'green', marginTop: '5px' }}>821</div>
+                <div style={{ fontSize: 'x-small', color: '#cccccc', marginTop: '5px' }}>较上日+200</div>
+
+              </Flex.Item>
+
+              <Flex.Item>
+                <div style={{ fontSize: 'small', color: ' #999999', marginTop: '5px' }}>在线数量</div>
+                <div style={{ fontSize: 'large', color: 'orange', marginTop: '5px' }}>51</div>
+                <div style={{ fontSize: 'x-small', color: '#cccccc', marginTop: '5px' }}>较上日+8</div>
+              </Flex.Item>
+
+              <Flex.Item>
+                <div style={{ fontSize: 'small', color: ' #999999', marginTop: '5px' }}>异常数量</div>
+                <div style={{ fontSize: 'large', color: 'red', marginTop: '5px' }}>32</div>
+                <div style={{ fontSize: 'x-small', color: '#cccccc', marginTop: '5px' }}>较上日+4</div>
+              </Flex.Item>
+            </Flex>
+          </Card.Body>
+        </Card>
+
+
+        <Card full >
+          <Card.Header style={{ fontSize: '14px' }}
+            title="全省资产分布"
+          />
+          <Card.Body>
+            <div id="main" style={{ width: '100%', height: 240 }}></div>
           </Card.Body>
         </Card>
       </div>

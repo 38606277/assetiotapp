@@ -35,10 +35,10 @@ class WxTabBar extends PureComponent {
         hidden: false,
         selectedTab: "AssetMap" //pathName.substring(1)
       });
-    } else if (pathName === '/AI') {
+    } else if (pathName === '/Asset/AssetList') {
       this.setState({
         hidden: false,
-        selectedTab: "AI"
+        selectedTab: "AssetList"
       });
     } else if (pathName === '/Chat') {
       this.setState({

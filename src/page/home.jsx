@@ -14,6 +14,7 @@ import 'echarts/lib/chart/bar';
 import 'echarts/lib/component/tooltip';
 import 'echarts/lib/component/title';
 import './home.scss';
+
 const _user = new User();
 const localStorge = new LocalStorge();
 
@@ -91,6 +92,7 @@ export default class Home extends React.Component {
       window.location.href = "#/My";
     }
   }
+
   //界面渲染
   render() {
     return (
@@ -143,20 +145,20 @@ export default class Home extends React.Component {
             <Flex style={{ textAlign: "center" }}>
               <Flex.Item>
 
-                <div style={{ fontSize: 'small', color: ' #999999', marginTop: '5px' }} >资产数量</div>
+                <div style={{ fontSize: 'small', color: ' #999999', marginTop: '5px' }}>资产数量</div>
                 <div style={{ fontSize: 'large', color: 'green', marginTop: '5px' }}>821</div>
                 <div style={{ fontSize: 'x-small', color: '#cccccc', marginTop: '5px' }}>较上日+200</div>
 
               </Flex.Item>
 
               <Flex.Item>
-                <div style={{ fontSize: 'small', color: ' #999999', marginTop: '5px' }}>在线数量</div>
+                <div style={{ fontSize: 'small', color: ' #999999', marginTop: '5px' }} >在线数量</div>
                 <div style={{ fontSize: 'large', color: 'orange', marginTop: '5px' }}>51</div>
                 <div style={{ fontSize: 'x-small', color: '#cccccc', marginTop: '5px' }}>较上日+8</div>
               </Flex.Item>
 
               <Flex.Item>
-                <div style={{ fontSize: 'small', color: ' #999999', marginTop: '5px' }}>异常数量</div>
+                <div style={{ fontSize: 'small', color: ' #999999', marginTop: '5px' }} >异常数量</div>
                 <div style={{ fontSize: 'large', color: 'red', marginTop: '5px' }}>32</div>
                 <div style={{ fontSize: 'x-small', color: '#cccccc', marginTop: '5px' }}>较上日+4</div>
               </Flex.Item>

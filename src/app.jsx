@@ -105,6 +105,12 @@ const AssetRouter = Loadable({
     delay: 3000
 });
 
+// const AssetList = Loadable({
+//     loader: () => import(/* webpackChunkName: "AssetList" */ './page/asset/AssetList.jsx'),
+//     loading: loading,
+//     delay: 3000
+// });
+
 class App extends React.Component {
 
     // loadPage(url){
@@ -139,6 +145,7 @@ class App extends React.Component {
                     <Route path="/IndexSearch" component={IndexSearch} />
                     <Route path="/UploadInfo" component={UploadInfo} />
                     <Route path="/Demo" component={Demo} />
+                    {/* <Route path="/AssetList" component={AssetList} /> */}
                     <Route path="/Asset" component={AssetRouter} />
                 </Switch>
             </Layout>

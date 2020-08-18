@@ -176,7 +176,9 @@ export default class My extends React.Component {
 
         </List>
         <List >
-          <Item extra={'智能报表1.0'}>关于</Item>
+          <Item extra={'智能报表1.0'} onClick={() => {
+            window.location.href = "#/Asset/AssetScan"
+          }}>关于</Item>
 
         </List>
       </div>

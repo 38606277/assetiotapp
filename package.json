@@ -39,9 +39,11 @@
     "less": "^3.9.0",
     "less-loader": "^4.1.0",
     "mini-css-extract-plugin": "^0.5.0",
+    "node-sass": "^4.14.1",
     "sass-loader": "7.1.0",
     "style-loader": "0.19.1",
     "url-loader": "1.1.1",
+    "vconsole": "^3.3.4",
     "webpack": "4.27.1",
     "webpack-bundle-analyzer": "^3.0.3",
     "webpack-cli": "3.1.2",
@@ -56,16 +58,17 @@
     "less-loader": "^4.1.0",
     "lodash": "^4.17.10",
     "lodash-decorators": "^6.0.0",
+    "moment": "^2.24.0",
     "prop-types": "15.6.0",
+    "rc-form": "^2.4.11",
     "rc-pagination": "1.15.1",
     "react": "^16.3.1",
-    "react-load-script": "^0.0.6",
     "react-chat-widget": "^2.1.4-1",
     "react-dom": "16.2.0",
+    "react-load-script": "^0.0.6",
     "react-loadable": "^5.5.0",
     "react-router-dom": "4.2.2",
     "simditor": "^2.3.6",
-    "whatwg-fetch": "^2.0.4",
-    "moment": "^2.24.0"
+    "whatwg-fetch": "^2.0.4"
   }
 }

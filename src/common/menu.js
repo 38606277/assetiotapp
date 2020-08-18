@@ -41,8 +41,8 @@ const menuData = [
   },
   {
     name: '资产发现',
-    key: 'AI',
-    path: '/AI',
+    key: 'AssetList',
+    path: '/Asset/AssetList',
     icon: ai1,
     selectedIcon: ai2,
     unselectedTintColor: "#949494",

@@ -39,6 +39,12 @@ const SVGTest = Loadable({
     delay: 3000
 });
 
+const ToastExample = Loadable({
+    loader: () => import(/* webpackChunkName: "ToastExample" */ './ToastExample.jsx'),
+    loading: loading,
+    delay: 3000
+});
+
 export default class AssetRouter extends React.Component {
     render() {
         return (
@@ -47,6 +53,7 @@ export default class AssetRouter extends React.Component {
                 <Route path="/Asset/AssetScan" component={AssetScan} />
                 <Route path="/Asset/AssetList" component={AssetList} />
                 <Route path="/Asset/AssetDetail/:action/:id" component={AssetDetail} />
+                <Route path="/Asset/ToastExample" component={ToastExample} />
             </Switch>
         )
     }

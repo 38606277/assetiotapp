@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { SearchBar, List, WhiteSpace, WingBlank, Checkbox, SwipeAction, Switch, NavBar, Icon, InputItem, Toast, Button, } from 'antd-mobile';
+import { SearchBar, List, WhiteSpace, WingBlank, Checkbox, SwipeAction, Switch, NavBar, Icon, InputItem, Toast, Button, ImagePicker } from 'antd-mobile';
 import { Widget, addResponseMessage, toggleWidget, dropMessages, addLinkSnippet, addUserMessage, renderCustomComponent } from 'react-chat-widget';
 import 'antd-mobile/dist/antd-mobile.css';
 import HttpService from '../../util/HttpService.jsx';
@@ -16,8 +16,8 @@ class AssetDetail extends React.Component {
         this.state = {
             action: this.props.match.params.action,
             id: this.props.match.params.id,
-            imageUrl: '',
-            isReadOnly: this.props.match.params.action == 'readOnly'
+            isReadOnly: this.props.match.params.action == 'readOnly',
+            files: []
         };
     }
 
@@ -31,11 +31,16 @@ class AssetDetail extends React.Component {
                 if (res.resultCode == "1000") {
                     this.props.form.setFieldsValue(res.data);
                     this.setState({
-                        imageUrl: res.data.image
+                        files: [
+                            {
+                                url: `${window.getServerUrl()}reportServer/uploadAssetImg/downloadAssetImg?fileName=${res.data.image}`,
+                                fileName: res.data.image
+                            }
+                        ],
                     })
                 }
                 else
-                    message.error(res.message);
+                    Toast.error(res.message);
 
             });
 
@@ -43,20 +48,79 @@ class AssetDetail extends React.Component {
 
     updateAsset() {
         let formInfo = this.props.form.getFieldsValue();
-        formInfo.image = this.state.imageUrl;
+        if (0 < this.state.files.length) {
+            formInfo.image = this.state.files[0].fileName;
+        } else {
+            formInfo.image = '';
+        }
         formInfo.asset_id = this.state.id;
         console.log("提交数据", formInfo);
         HttpService.post("reportServer/asset/UpdateAsset", JSON.stringify(formInfo))
             .then(res => {
                 if (res.resultCode == "1000") {
-                    message.success(`保存成功！`)
+                    Toast.success(`报错成功！`)
                 }
-                else
-                    message.error(res.message);
+                else {
+                    Toast.error(res.message);
+                }
+
             });
         window.location.href = "#/Asset/AssetList"
     }
 
+    onChange = (files, type, index) => {
+        console.log(files, type, index);
+        if (type == 'add') { //新增则执行上传操作
+            this.uploadAssetImg(files)
+        } else {
+            this.setState({
+                files,
+            });
+        }
+    };
+
+    //上传图片
+    async uploadAssetImg(files) {
+        let newFiles = [];
+
+        for (let key in files) {
+            if (typeof files[key].file == 'undefined') {
+                newFiles.push(files[key]);
+            } else {
+                let formData = new FormData();
+                formData.append("file", files[key].file);
+                await HttpService.post("/reportServer/uploadAssetImg/uploadAssetImg", formData).then(response => {
+                    console.log("上传结果：", response)
+                    if (response.resultCode == '1000') {
+                        console.log("上传成功：", response.data)
+                        //上传成功
+                        newFiles.push({
+                            url: `${window.getServerUrl()}reportServer/uploadAssetImg/downloadAssetImg?fileName=${response.data.fileName}`,
+                            fileName: response.data.fileName
+                        });
+                    } else {
+                        Toast.fail(response.message)
+                    }
+
+                }).catch((err) => {
+                    Toast.fail(err)
+                });
+            }
+        }
+
+        console.log('newFiles', newFiles);
+        this.setState({
+            files: newFiles,
+        });
+    }
+
+
+    onSegChange = (e) => {
+        const index = e.nativeEvent.selectedSegmentIndex;
+        this.setState({
+            multiple: index === 1,
+        });
+    }
 
     render() {
 
@@ -278,6 +342,16 @@ class AssetDetail extends React.Component {
                         editable={false}
                         ref={el => this.inputRef = el}
                     >资产图片</InputItem>
+
+                    <ImagePicker
+                        files={this.state.files}
+                        onChange={this.onChange}
+                        onImageClick={(index, fs) => console.log(index, fs)}
+                        selectable={this.state.files.length < 1}
+                        multiple={false}
+                        capture={true}
+                    />
+
                 </List>
             </div >
         )

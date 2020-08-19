@@ -1,10 +1,11 @@
 import React from 'react';
-import { List, WhiteSpace, WingBlank, SearchBar, Carousel, Checkbox, Button, NavBar, Icon, InputItem, Grid, Card, Flex } from 'antd-mobile';
+import { List, WhiteSpace, WingBlank, SearchBar, Carousel, Checkbox, Button, NavBar, Icon, InputItem, Grid, Card, Flex, Toast } from 'antd-mobile';
 import 'antd-mobile/dist/antd-mobile.css';
 import User from '../service/user-service.jsx'
 import LocalStorge from '../util/LogcalStorge.jsx';
 import CommonSearch from './commonSearch.jsx';
 import QueryClassList from './QueryClassList.jsx';
+
 
 // 引入 ECharts 主模块
 import echarts from 'echarts/lib/echarts';
@@ -39,6 +40,7 @@ export default class Home extends React.Component {
       data: ['1', '2', '3'],
       imgHeight: 196,
     }
+
   }
 
   componentDidMount() {
@@ -96,6 +98,7 @@ export default class Home extends React.Component {
   //界面渲染
   render() {
     return (
+
       <div>
         <div className="headerBar">
           <CommonSearch onSearch={() => { this.onSearch() }} toAI={() => this.toAI()} />
@@ -145,7 +148,13 @@ export default class Home extends React.Component {
             <Flex style={{ textAlign: "center" }}>
               <Flex.Item>
 
-                <div style={{ fontSize: 'small', color: ' #999999', marginTop: '5px' }}>资产数量</div>
+                <div style={{ fontSize: 'small', color: ' #999999', marginTop: '5px' }} onClick={
+                  () => {
+                    console.log('触发事件', Toast)
+                    Toast.fail('12', 3, null, false)
+                    console.log('触发事件2')
+                  }
+                }>资产数量</div>
                 <div style={{ fontSize: 'large', color: 'green', marginTop: '5px' }}>821</div>
                 <div style={{ fontSize: 'x-small', color: '#cccccc', marginTop: '5px' }}>较上日+200</div>
 
@@ -175,7 +184,7 @@ export default class Home extends React.Component {
             <div id="main" style={{ width: '100%', height: 240 }}></div>
           </Card.Body>
         </Card>
-      </div>
+      </div >
     )
   }
 }

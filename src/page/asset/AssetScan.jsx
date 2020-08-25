@@ -5,7 +5,8 @@ import { Widget, addResponseMessage, toggleWidget, dropMessages, addLinkSnippet,
 import 'antd-mobile/dist/antd-mobile.css';
 import HttpService from '../../util/HttpService.jsx';
 import { result } from 'lodash';
-
+import HexUtils from '../../common/HexUtils.jsx'
+import { Base64 } from 'js-base64';
 
 class AssetScan extends React.Component {
 
@@ -21,8 +22,8 @@ class AssetScan extends React.Component {
         }
     }
     componentDidMount() {
-
     }
+
     /**
      * 界面销毁
      */
@@ -268,9 +269,6 @@ class AssetScan extends React.Component {
             }
         }
 
-
-
-
         //检查是否正在扫描
         let isScaning = await this.checkIsScanning();
         if (isScaning) {
@@ -283,7 +281,6 @@ class AssetScan extends React.Component {
 
     //停止扫描
     async stopScanBluetooth() {
-
         //检查是否正在扫描
         let isScaning = await this.checkIsScanning();
         if (isScaning) {
@@ -299,15 +296,41 @@ class AssetScan extends React.Component {
         }
     }
 
+    test() {
+        var advertisement = 'AgEGE/9MAAwOCBkPpPG7ZC2Ww3N0N3gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=';
+        // var advertisement = ' MTIzNDU2';
+        var base64Value = HexUtils.base64ToArrayBuffer(advertisement);
+        console.log('base64Value ： ', base64Value);
+
+        var bytes = bluetoothle.encodedStringToBytes(advertisement);
+        console.log('bytes ： ', bytes);
+
+
+        var value = HexUtils.bytesToHexStr(bytes);
+        console.log('value ： ', value);
+    }
+
     render() {
         let { foundDevices } = this.state;
         let devicesListUI = [];
         for (let i in foundDevices) {
             let devices = foundDevices[i];
-            devicesListUI.push(<div> {`${devices.name} - ${devices.address}`}</div>)
+            var bytes = bluetoothle.encodedStringToBytes(devices.advertisement);
+            console.log('bytes ： ', bytes);
+            var HexStr = HexUtils.bytesToHexStr(bytes);
+            console.log('广播数据：' + HexStr);
+            devicesListUI.push(<div>
+                {`${devices.name} - ${devices.address}`}
+                <br />
+                {`HEX广播数据 : ${devices.HEX}`}
+                <br />
+                {`广播数据 : ${HexStr}`}
+                <br />
+            </div>)
         }
         return (
             <div>
+
                 <NavBar
                     mode="light"
                     style={{ backgroundColor: 'rgb(79,188,242)', color: 'rgb(255,255,255)' }}
@@ -323,7 +346,9 @@ class AssetScan extends React.Component {
                 <Button onClick={() => {
                     this.stopScanBluetooth();
                 }}> 停止扫描 </Button>
-
+                <Button onClick={() => {
+                    this.test();
+                }}> 测试 </Button>
 
                 <div >
                     设备信息:<br />

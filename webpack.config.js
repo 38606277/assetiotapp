@@ -7,7 +7,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const devMode = process.env.NODE_ENV !== 'production'
 
 module.exports = {
-    mode:'development',
+    mode: 'development',
     devtool: 'source-map',
     entry: {
         bundle: path.resolve(__dirname, './src/app.jsx')
@@ -36,7 +36,7 @@ module.exports = {
                         plugins: [
                             'syntax-dynamic-import',
                             "transform-decorators-legacy",
-                            ["import", { "libraryName": "antd", "libraryDirectory": "es", "style": "css" }] // `style: true` 会加载 less 
+                            ["import", { libraryName: "antd-mobile", style: "css" }] // `style: true` 会加载 less 文件
                         ]
 
                     }
@@ -45,18 +45,18 @@ module.exports = {
             {
                 test: /\.(sa|sc|c)ss$/,
                 use: [
-                  devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
-                  'css-loader',
-                  'sass-loader',
+                    devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
+                    'css-loader',
+                    'sass-loader',
                 ],
-              },
-          {
-            test:/\.less$/,
-            use:[
-                // MiniCssExtractPlugin.loader,
-                {
-                    loader: 'style-loader'
-                }, {
+            },
+            {
+                test: /\.less$/,
+                use: [
+                    // MiniCssExtractPlugin.loader,
+                    {
+                        loader: 'style-loader'
+                    }, {
                         loader: "css-loader",
                         options: { modules: true }
                     },
@@ -64,53 +64,53 @@ module.exports = {
                         loader: "less-loader",
                         options: { javascriptEnabled: true }
                     }
-                 ]
-        },
-         
-        //    {
-        //     test: /\.less$/,
-        //     use:ExtractTextPlugin.extract({
-        //         fallback: 'style-loader',
-        //         use: [
-        //             {
-        //                 loader: "css-loader",
-        //                 options: { modules: true }
-        //             },
-        //             {
-        //                 loader: 'postcss-loader'
-        //             },
-        //             {
-        //                 loader: "less-loader",
-        //                 options: { javascriptEnabled: true }
-        //             }
-        //     ]})
-        // },
-        // 图片的配置
-        {
-            test: /\.(png|jpg|gif)$/,
-            use: [
-                {
-                    loader: 'url-loader',
-                    options: {
-                        limit: 8192,
-                        name: 'resource/[name].[ext]'
+                ]
+            },
+
+            //    {
+            //     test: /\.less$/,
+            //     use:ExtractTextPlugin.extract({
+            //         fallback: 'style-loader',
+            //         use: [
+            //             {
+            //                 loader: "css-loader",
+            //                 options: { modules: true }
+            //             },
+            //             {
+            //                 loader: 'postcss-loader'
+            //             },
+            //             {
+            //                 loader: "less-loader",
+            //                 options: { javascriptEnabled: true }
+            //             }
+            //     ]})
+            // },
+            // 图片的配置
+            {
+                test: /\.(png|jpg|gif)$/,
+                use: [
+                    {
+                        loader: 'url-loader',
+                        options: {
+                            limit: 8192,
+                            name: 'resource/[name].[ext]'
+                        }
                     }
-                }
-            ]
-        },
-        // 字体图标的配置
-        {
-            test: /\.(eot|svg|ttf|woff|woff2|otf)$/,
-            use: [
-                {
-                    loader: 'url-loader',
-                    options: {
-                        limit: 8192,
-                        name: 'resource/[name].[ext]'
+                ]
+            },
+            // 字体图标的配置
+            {
+                test: /\.(eot|svg|ttf|woff|woff2|otf)$/,
+                use: [
+                    {
+                        loader: 'url-loader',
+                        options: {
+                            limit: 8192,
+                            name: 'resource/[name].[ext]'
+                        }
                     }
-                }
-            ]
-        }
+                ]
+            }
         ]
     },
     performance: {
@@ -118,24 +118,24 @@ module.exports = {
     },
     optimization: {
         splitChunks: {
-          cacheGroups: {
-            commons: {
-              test: /[\\/]node_modules[\\/]/,
-              name: 'vendors',
-              chunks: 'all'
-            },
-            styles: {
-                name: 'styles',
-                test: /\.css$/,
-                chunks: 'all',
-                enforce: true
-              }
-          }
+            cacheGroups: {
+                commons: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: 'vendors',
+                    chunks: 'all'
+                },
+                styles: {
+                    name: 'styles',
+                    test: /\.css$/,
+                    chunks: 'all',
+                    enforce: true
+                }
+            }
         }
     },
     plugins: [
         new webpack.DefinePlugin({//设置成production去除警告
-            'process.env':{
+            'process.env': {
                 NODE_ENV: JSON.stringify("production")
             }
         }),
@@ -144,14 +144,14 @@ module.exports = {
             // both options are optional
             filename: devMode ? '[name].css' : '[name].[hash].css',
             chunkFilename: devMode ? '[id].css' : '[id].[hash].css',
-          }),
+        }),
         new HtmlWebpackPlugin({
             template: './src/index.html',
             favicon: './favicon.ico'
         }),
         new CleanWebpackPlugin(['dist',
             'build'], {
-            root:__dirname,
+            root: __dirname,
             verbose: true,
             dry: false,
             exclude: ['jslibs']

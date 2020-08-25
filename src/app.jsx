@@ -6,7 +6,6 @@ import Loadable from 'react-loadable';
 import loading from './common/loading.jsx'
 import './app.css'
 
-
 const ListUser = Loadable({
     loader: () => import('./page/ListUser.jsx'),
     loading: loading,
@@ -111,6 +110,13 @@ const AssetRouter = Loadable({
 //     delay: 3000
 // });
 
+
+// const AssetDetail = Loadable({
+//     loader: () => import(/* webpackChunkName: "AssetDetail" */ './page/asset/AssetDetail.jsx'),
+//     loading: loading,
+//     delay: 3000
+// });
+
 class App extends React.Component {
 
     // loadPage(url){
@@ -146,6 +152,7 @@ class App extends React.Component {
                     <Route path="/UploadInfo" component={UploadInfo} />
                     <Route path="/Demo" component={Demo} />
                     {/* <Route path="/AssetList" component={AssetList} /> */}
+
                     <Route path="/Asset" component={AssetRouter} />
                 </Switch>
             </Layout>

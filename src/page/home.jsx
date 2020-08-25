@@ -6,7 +6,6 @@ import LocalStorge from '../util/LogcalStorge.jsx';
 import CommonSearch from './commonSearch.jsx';
 import QueryClassList from './QueryClassList.jsx';
 
-
 // 引入 ECharts 主模块
 import echarts from 'echarts/lib/echarts';
 // 引入柱状图
@@ -95,6 +94,23 @@ export default class Home extends React.Component {
     }
   }
 
+  showToast() {
+    Toast.info('This is a toast tips !!!', 1);
+  }
+
+  mShow = () => {
+
+    console.log('触发事件', Toast)
+    Toast.fail("登录失败，请检查用户名与密码");
+    console.log('触发事件2')
+
+  }
+
+
+  testToast = () => {
+    message.error('123123123');
+  }
+
   //界面渲染
   render() {
     return (
@@ -150,9 +166,7 @@ export default class Home extends React.Component {
 
                 <div style={{ fontSize: 'small', color: ' #999999', marginTop: '5px' }} onClick={
                   () => {
-                    console.log('触发事件', Toast)
-                    Toast.fail('12', 3, null, false)
-                    console.log('触发事件2')
+                    this.showToast()
                   }
                 }>资产数量</div>
                 <div style={{ fontSize: 'large', color: 'green', marginTop: '5px' }}>821</div>

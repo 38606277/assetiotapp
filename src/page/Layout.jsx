@@ -10,24 +10,26 @@ export default class MainLoyout extends React.Component {
         super(props)
     }
     componentDidMount() {
-        let userInfo=localStorge.getStorage('userInfo');
-        if(undefined==userInfo || null==userInfo || ''==userInfo){
-          window.location.href="#/My";
-        }
+        console.log("componentDidMount", this.props)
+        // let userInfo = localStorge.getStorage('userInfo');
+        // if (undefined == userInfo || null == userInfo || '' == userInfo) {
+        //     window.location.href = "#/My";
+        // }
     }
-    componentWillReceiveProps(nextProps){
-        let userInfo=localStorge.getStorage('userInfo');
-        if(undefined==userInfo || null==userInfo || ''==userInfo){
-          window.location.href="#/My";
-        }
+    componentWillReceiveProps(nextProps) {
+        console.log("componentWillReceiveProps nextProps", nextProps)
+        // let userInfo = localStorge.getStorage('userInfo');
+        // if (undefined == userInfo || null == userInfo || '' == userInfo) {
+        //     window.location.href = "#/My";
+        // }
     }
     render() {
         return (
             <div >
-                <div style={{paddingBottom:'50px'}}> {this.props.children}</div>
-                <WxTabBar {...this.props}/>
+                <div style={{ paddingBottom: '50px' }}> {this.props.children}</div>
+                <WxTabBar {...this.props} />
             </div>
-            
+
         );
     }
 }

@@ -3,16 +3,56 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
+    <!-- <meta name="viewport"
         content="width=device-width,minimum-scale=1,maximum-scale=1,user-scalable=no,initial-scale=1.0">
-    <meta name="author" content="react">
+    <meta name="author" content="react"> -->
     <title>物联网资产平台</title>
+
     <script type="text/javascript">
-        function getServerUrl() {
-            if (location.hostname) {
-                return "http://" + location.hostname + ":" + "80" + "/";
+
+        function getStorage(name) {
+            let data = window.localStorage.getItem(name);
+
+            if (data && name != "lasurl") {
+                let exp = 1000 * 60 * 5 * 60;//1000*60*5*60
+                let dataObj = JSON.parse(data);
+                let t = new Date().getTime() - dataObj.time;
+                return dataObj.data;
+                // if (t>exp) {
+                //     window.localStorage.removeItem(name);
+                //     let lasturl = window.location.href.split('#')[1] || '';
+                //     window.localStorage.setItem('lasurl', lasturl);
+                //     alert('登录信息已过期，请重新登录！');
+                //     return '';
+                // }else{
+                //     //console.log("data="+dataObj.data);
+                //     //console.log(JSON.parse(dataObj.data));
+                //     return dataObj.data;
+                // }
             } else {
-                return 'http://localhost:80/';
+                if (null != data && 'null' != data && '' != data) {
+                    return data;
+                } else {
+                    return '';
+                }
+            }
+        }
+
+        function getServerUrl() {
+            let hostname = "";
+            let configInfo = getStorage('configInfo');
+            if (undefined != configInfo && null != configInfo && '' != configInfo) {
+                hostname = configInfo.hostname;
+            }
+            console.log('configInfo.hostname', hostname)
+            if (hostname == typeof "undefined" || hostname == null || hostname == "") {//为空则自动获取
+                if (location.hostname) {
+                    return "http://" + location.hostname + ":" + "80" + "/";
+                } else {
+                    return 'http://localhost:80/';
+                }
+            } else {
+                return "http://" + hostname + ":" + "80" + "/";
             }
         }
         //  alert(getServerUrl());

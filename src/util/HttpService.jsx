@@ -1,10 +1,10 @@
 import 'whatwg-fetch';
-import  LocalStorge  from './LogcalStorge.jsx';
+import LocalStorge from './LogcalStorge.jsx';
 const localStorge = new LocalStorge();
 export default class HttpService {
-    
-    static getBaseUrl(){
-        var  url=window.getServerUrl();
+
+    static getBaseUrl() {
+        var url = window.getServerUrl();
         // let userInfo=localStorge.getStorage('userInfo');
         // if(undefined!=userInfo && null!=userInfo && ''!=userInfo){
         //     url=userInfo.address;
@@ -13,13 +13,14 @@ export default class HttpService {
         // }
         return url;
     }
-    
-    static post(url,param){
-        if((undefined==localStorge.getStorage('userInfo') && url!='/reportServer/user/encodePwd' && url!='/reportServer/user/Reactlogin') || (''==localStorge.getStorage('userInfo')  && url!='/reportServer/user/encodePwd' && url!='/reportServer/user/Reactlogin')){
-            window.location.href='#/Main';
-            return  new Promise((resolve, reject) => {});
-        }else{
+
+    static post(url, param) {
+        if ((undefined == localStorge.getStorage('userInfo') && url != '/reportServer/user/encodePwd' && url != '/reportServer/user/Reactlogin') || ('' == localStorge.getStorage('userInfo') && url != '/reportServer/user/encodePwd' && url != '/reportServer/user/Reactlogin')) {
+            window.location.href = '#/Main';
+            return new Promise((resolve, reject) => { });
+        } else {
             const fullUrl = HttpService.getBaseUrl() + url;
+            console.log('post : ', fullUrl)
             let opts = {
                 method: 'POST',
                 headers: {
@@ -29,17 +30,17 @@ export default class HttpService {
             };
 
             return fetch(fullUrl, opts).then((response) => {
-                    //console.log(response.json())
-                    return response.json();
-                }).catch((error)=>{
-                    return error.json();
-                });
+                //console.log(response.json())
+                return response.json();
+            }).catch((error) => {
+                return error.json();
+            });
         }
     }
 
-    get(){
+    get() {
 
     }
 
-          
-    }
+
+}

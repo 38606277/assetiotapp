@@ -139,7 +139,7 @@ class AssetList extends React.Component {
                 saveHistory: true, // Android, save scan history (default false)
                 prompt: 'Place a barcode inside the scan area', // Android
                 resultDisplayDuration: 500, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
-                formats: 'QR_CODE,PDF_417', // default: all but PDF_417 and RSS_EXPANDED
+                // formats: 'QR_CODE,PDF_417', // default: all but PDF_417 and RSS_EXPANDED
                 orientation: 'portrait', // Android only (portrait|landscape), default unset so it rotates with the device
                 disableAnimations: true, // iOS
                 disableSuccessBeep: false // iOS and Android
@@ -182,7 +182,7 @@ class AssetList extends React.Component {
                         }}
                     >{obj.asset_name}</div>
                     <div style={{ display: '-webkit-box', display: 'flex', padding: '15px 0' }}>
-                        <img style={{ height: '64px', width: '64px', marginRight: '15px' }} src={`${window.getServerUrl()}reportServer/uploadAssetImg/downloadAssetImg?fileName=${obj.image}`} />
+                        <img style={{ height: '64px', width: '64px', marginRight: '15px' }} src={`${window.getServerUrl()}reportServer/uploadAssetImg/downloadAssetImg?fileName=thumbnail_${obj.image}`} />
                         <div style={{ lineHeight: 1 }}>
                             <div style={{ marginBottom: '8px', lineHeight: '22px', color: 'rgba(0, 0, 0, 0.45)', fontSize: '12px' }}>
                                 资产标签：{obj.asset_tag}<br />

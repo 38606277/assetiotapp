@@ -1,5 +1,5 @@
 import React from 'react';
-import { List, WhiteSpace, WingBlank, SearchBar, Carousel, Checkbox, Button, NavBar, Icon, InputItem, Grid, Card, Flex, Toast } from 'antd-mobile';
+import { WhiteSpace, Carousel, Icon, Card, Flex, Toast } from 'antd-mobile';
 import 'antd-mobile/dist/antd-mobile.css';
 import User from '../service/user-service.jsx'
 import LocalStorge from '../util/LogcalStorge.jsx';
@@ -68,6 +68,17 @@ export default class Home extends React.Component {
         data: [34, 26, 0, 0, 0, 0, 0, 0, 0, 0, 0]
       }]
     });
+
+
+    Toast.loading('Loading...', 30, () => {
+      console.log('Load complete !!!');
+    });
+
+    setTimeout(() => {
+      Toast.hide();
+    }, 3000);
+
+
   }
 
 
@@ -110,6 +121,8 @@ export default class Home extends React.Component {
   testToast = () => {
     message.error('123123123');
   }
+
+
 
   //界面渲染
   render() {
@@ -164,11 +177,7 @@ export default class Home extends React.Component {
             <Flex style={{ textAlign: "center" }}>
               <Flex.Item>
 
-                <div style={{ fontSize: 'small', color: ' #999999', marginTop: '5px' }} onClick={
-                  () => {
-                    this.showToast()
-                  }
-                }>资产数量</div>
+                <div style={{ fontSize: 'small', color: ' #999999', marginTop: '5px' }} >资产数量</div>
                 <div style={{ fontSize: 'large', color: 'green', marginTop: '5px' }}>821</div>
                 <div style={{ fontSize: 'x-small', color: '#cccccc', marginTop: '5px' }}>较上日+200</div>
 

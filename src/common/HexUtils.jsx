@@ -1,13 +1,32 @@
 export default class HexUtils {
 
     /**
+     * base64转字节数组
+     * @param {} advertisement 
+     */
+    static base64ToBytes(advertisement) {
+        let data = atob(advertisement);
+        let bytes = new Uint8Array(data.length);
+        let i;
+        for (i = 0; i < bytes.length; i++) {
+            bytes[i] = data.charCodeAt(i);
+        }
+        return bytes;
+    }
+
+
+    /**
     * 二进制数据转16进制
     */
     static bytesToHexStr = (bytes) => {
+        if (bytes == null || typeof bytes == 'undefined') {
+            return '';
+        }
+
         const hexArray = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F']
         let hexChars = [];
         let j = 0;
-        for (j = 0; j < bytes.length; j++) {
+        for (j; j < bytes.length; j++) {
             let v = bytes[j] & 0xFF;
             hexChars[j * 2] = hexArray[v >>> 4];
             hexChars[j * 2 + 1] = hexArray[v & 0x0F];
@@ -53,36 +72,6 @@ export default class HexUtils {
         }
         return bytes;
     }
-
-
-    static string2Bin = (s) => {
-        var b = new Array();
-        var last = s.length;
-
-        for (var i = 0; i < last; i++) {
-            var d = s.charCodeAt(i);
-            if (d < 128)
-                b[i] = dec2Bin(d);
-            else {
-                var c = s.charAt(i);
-                alert(c + ' is NOT an ASCII character');
-                b[i] = -1;
-            }
-        }
-        return b;
-    }
-
-    static dec2Bin = (s) => {
-        var b = '';
-
-        for (var i = 0; i < 8; i++) {
-            b = (d % 2) + b;
-            d = Math.floor(d / 2);
-        }
-
-        return b;
-    }
-
 }
 
 

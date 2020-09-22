@@ -1,5 +1,5 @@
 import React from 'react';
-import { List, InputItem, Tag, Icon, SearchBar, Toast, Button, Brief } from 'antd-mobile';
+import { List, InputItem, Tag, Icon, SearchBar, Toast, Button } from 'antd-mobile';
 import HttpService from '../util/HttpService.jsx';
 import LocalStorge from '../util/LogcalStorge.jsx';
 const localStorge = new LocalStorge();
@@ -129,8 +129,8 @@ class IndexSearch extends React.Component {
                             multipleLine
                         >
                             {this.state.out.map((aItem) => {
-                                return <div><Brief>{aItem.out_name}:{val[aItem.out_id.toUpperCase()]}</Brief></div>
-                                    
+                                return <div>{aItem.out_name}:{val[aItem.out_id.toUpperCase()]}</div>
+
                             }
 
                             )}

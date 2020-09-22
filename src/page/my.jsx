@@ -111,11 +111,19 @@ export default class My extends React.Component {
           }}></div>}
           onLeftClick={() => this.goback()}
           style={{ backgroundColor: 'rgb(79,188,242)', color: 'rgb(255,255,255)' }}
-        // rightContent={[
-        //   <Icon key="1" type="cross-circle" onClick={this.logout} />
-        // ]}
+          // rightContent={[
+          //   <Icon key="1" type="cross-circle" onClick={this.logout} />
+          // ]}
+
+          rightContent={[
+            <div onClick={() => {
+              window.location.href = `#/Setting`
+            }}>设置</div>
+          ]}
+
         >
           <span style={{ color: 'white' }}>我的设置</span>
+
         </NavBar>
         {/* <div style={{background:'url(../../src/assets/sandnab.jpg) no-repeat center center'}}>
           <div  className='head' ></div>
@@ -177,9 +185,13 @@ export default class My extends React.Component {
         </List>
         <List >
           <Item extra={'智能报表1.0'} onClick={() => {
-            //window.location.href = "#/Asset/AssetScan"
-            Toast.info('12');
           }}>关于</Item>
+
+          <Item onClick={() => {
+            console.log(url)
+            window.location.href = "#/Asset/AssetScan"
+          }}> 扫描资产</Item>
+
 
         </List>
       </div>

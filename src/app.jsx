@@ -6,6 +6,8 @@ import Loadable from 'react-loadable';
 import loading from './common/loading.jsx'
 import './app.css'
 
+import { Button, Icon, Toast } from 'antd-mobile';
+
 const ListUser = Loadable({
     loader: () => import('./page/ListUser.jsx'),
     loading: loading,
@@ -91,6 +93,14 @@ const Demo = Loadable({
     loading: loading,
     delay: 3000
 });
+
+const Setting = Loadable({
+    loader: () => import('./page/Setting.jsx'),
+    loading: loading,
+    delay: 3000
+});
+
+
 // function loadPage(url){
 //    return Loadable({
 //     loader:()=>import(url),
@@ -104,18 +114,7 @@ const AssetRouter = Loadable({
     delay: 3000
 });
 
-// const AssetList = Loadable({
-//     loader: () => import(/* webpackChunkName: "AssetList" */ './page/asset/AssetList.jsx'),
-//     loading: loading,
-//     delay: 3000
-// });
 
-
-// const AssetDetail = Loadable({
-//     loader: () => import(/* webpackChunkName: "AssetDetail" */ './page/asset/AssetDetail.jsx'),
-//     loading: loading,
-//     delay: 3000
-// });
 
 class App extends React.Component {
 
@@ -152,6 +151,7 @@ class App extends React.Component {
                     <Route path="/UploadInfo" component={UploadInfo} />
                     <Route path="/Demo" component={Demo} />
                     {/* <Route path="/AssetList" component={AssetList} /> */}
+                    <Route path="/Setting" component={Setting} />
 
                     <Route path="/Asset" component={AssetRouter} />
                 </Switch>

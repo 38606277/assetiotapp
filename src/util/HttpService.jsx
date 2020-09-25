@@ -16,7 +16,7 @@ export default class HttpService {
 
     static post(url, param) {
         if ((undefined == localStorge.getStorage('userInfo') && url != '/reportServer/user/encodePwd' && url != '/reportServer/user/Reactlogin') || ('' == localStorge.getStorage('userInfo') && url != '/reportServer/user/encodePwd' && url != '/reportServer/user/Reactlogin')) {
-            window.location.href = '#/Main';
+            window.location.href = '#/';
             return new Promise((resolve, reject) => { });
         } else {
             const fullUrl = HttpService.getBaseUrl() + url;

@@ -129,7 +129,7 @@ class App extends React.Component {
         let LayoutRouter = (
             <Layout>
                 <Switch>
-                    <Route exact path="/" component={Home} />
+                    <Route exact path="/" component={Login} />
                     <Route path="/ListUser" component={ListUser} />
                     <Route path="/Main" component={Main} />
                     <Route path="/Home" component={Home} />

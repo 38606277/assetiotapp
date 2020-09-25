@@ -50,8 +50,8 @@ const menuData = [
   },
   {
     name: '资产预警',
-    key: 'Chat',
-    path: '/Chat',
+    key: 'AssetAlarmList',
+    path: '/Asset/AssetAlarmList',
     icon: chart1,
     selectedIcon: chart2,
     unselectedTintColor: "#949494",

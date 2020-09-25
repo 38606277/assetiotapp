@@ -90,8 +90,8 @@ export default class My extends React.Component {
 
   logout = () => {
     localStorge.removeStorage('userInfo');
-    this.setState({ isLogin: false, address: null });
-    //window.location.href="#/Home";
+    //this.setState({ isLogin: false, address: null });
+    window.location.href = "#/";
   }
   updateImg() {
     window.location.href = "#/UploadInfo";
@@ -111,16 +111,9 @@ export default class My extends React.Component {
           }}></div>}
           onLeftClick={() => this.goback()}
           style={{ backgroundColor: 'rgb(79,188,242)', color: 'rgb(255,255,255)' }}
-          // rightContent={[
-          //   <Icon key="1" type="cross-circle" onClick={this.logout} />
-          // ]}
-
-          rightContent={[
-            <div onClick={() => {
-              window.location.href = `#/Setting`
-            }}>设置</div>
-          ]}
-
+        // rightContent={[
+        //   <Icon key="1" type="cross-circle" onClick={this.logout} />
+        // ]}
         >
           <span style={{ color: 'white' }}>我的设置</span>
 

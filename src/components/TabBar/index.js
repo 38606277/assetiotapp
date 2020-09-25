@@ -11,8 +11,7 @@ import Styles from './index.less';
 const pathName = window.location.href.split('#')[1] || '';
 class WxTabBar extends PureComponent {
   state = {
-    selectedTab: pathName == "/" ? "Home" : pathName.substring(1),
-    hidden: false
+    hidden: true
   }
 
   changeTab = (tab) => {
@@ -25,7 +24,8 @@ class WxTabBar extends PureComponent {
   componentWillReceiveProps(nextProps) {
     let pathName = window.location.href.split('#')[1] || '';
     //let pathName = nextProps.location.pathname;
-    if (pathName === '/Home' || pathName === '/') {
+    console.log('pathName', pathName)
+    if (pathName === '/Home') {
       this.setState({
         hidden: false,
         selectedTab: "Home" //pathName.substring(1)
@@ -40,10 +40,10 @@ class WxTabBar extends PureComponent {
         hidden: false,
         selectedTab: "AssetList"
       });
-    } else if (pathName === '/Chat') {
+    } else if (pathName === '/Asset/AssetAlarmList') {
       this.setState({
         hidden: false,
-        selectedTab: "Chat"
+        selectedTab: "AssetAlarmList"
       });
     } else if (pathName === '/My') {
       this.setState({

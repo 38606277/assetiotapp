@@ -2,8 +2,8 @@ import React from 'react';
 import { List, WhiteSpace, Checkbox, Button, NavBar, Icon, InputItem } from 'antd-mobile';
 import 'antd-mobile/dist/antd-mobile.css';
 
-import User         from '../service/user-service.jsx'
-import LocalStorge  from '../util/LogcalStorge.jsx';
+import User from '../service/user-service.jsx'
+import LocalStorge from '../util/LogcalStorge.jsx';
 
 const _user = new User();
 
@@ -29,7 +29,7 @@ export default class Login extends React.Component {
   // 当用户名发生改变
   onInputChange(name, value) {
     //alert(e);
-   
+
     this.setState({
       [name]: value
     });
@@ -57,7 +57,7 @@ export default class Login extends React.Component {
         loginInfo.Pwd = response.encodePwd;
         _user.login(loginInfo).then((response) => {
           localStorge.setStorage('userInfo', response.data);
-          window.location.href = "#/Main";
+          window.location.href = "#/Home";
           // this.props.history.push(this.state.redirect);
         }, (errMsg) => {
           localStorge.errorTips(errMsg);
@@ -79,15 +79,17 @@ export default class Login extends React.Component {
       <div >
         <NavBar
           mode="light"
-          icon={<Icon type="left" />}
-          onLeftClick={() => window.location.href = "#/"}
+          // icon={<Icon type="left" />}
+          // onLeftClick={() => window.location.href = "#/"}
           rightContent={[
-            <Icon key="1" type="ellipsis" onClick={this.loadData} />
+            <div onClick={() => {
+              window.location.href = `#/Setting`
+            }}>设置</div>
           ]}
         >
           登录系统
         </NavBar>
-        <List style={{marginTop:'150px'}}>
+        <List style={{ marginTop: '150px' }}>
           <List.Item>
             <InputItem
               type="text"
@@ -95,7 +97,7 @@ export default class Login extends React.Component {
               placeholder="输入用户名"
               clear
               onKeyUp={e => this.onInputKeyUp(e)}
-              onChange={(v)=>this.onInputChange('UserCode',v)}
+              onChange={(v) => this.onInputChange('UserCode', v)}
             >用户:</InputItem>
           </List.Item>
           <List.Item>
@@ -104,7 +106,7 @@ export default class Login extends React.Component {
               name="password"
               placeholder="******"
               onKeyUp={e => this.onInputKeyUp(e)}
-              onChange={v => this.onInputChange("Pwd",v)}
+              onChange={v => this.onInputChange("Pwd", v)}
             >密码:</InputItem>
           </List.Item>
           <List.Item>

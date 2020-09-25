@@ -45,4 +45,4 @@ class Login extends React.Component {
         )
     }
 }
-export default Login= Form.create({})(Login);
+export default Login = Form.create({})(Login);

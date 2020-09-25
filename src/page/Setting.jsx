@@ -21,7 +21,7 @@ class Setting extends React.Component {
         console.log('updateConfigClick')
         let configInfo = this.props.form.getFieldsValue();
         localStorge.setStorage('configInfo', configInfo);
-        window.location.href = "#/My"
+        window.location.href = "#/"
     }
 
     render() {
@@ -37,7 +37,7 @@ class Setting extends React.Component {
                             this.updateConfig();
                         }}>确定</div>
                     ]}
-                    onLeftClick={() => window.location.href = "#/My"}
+                    onLeftClick={() => window.location.href = "#/"}
                 >
                     <span style={{ color: 'white' }}>设置</span>
                 </NavBar>

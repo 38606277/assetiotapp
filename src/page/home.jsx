@@ -15,6 +15,9 @@ import 'echarts/lib/component/tooltip';
 import 'echarts/lib/component/title';
 import './home.scss';
 
+
+
+
 const _user = new User();
 const localStorge = new LocalStorge();
 
@@ -105,25 +108,6 @@ export default class Home extends React.Component {
     }
   }
 
-  showToast() {
-    Toast.info('This is a toast tips !!!', 1);
-  }
-
-  mShow = () => {
-
-    console.log('触发事件', Toast)
-    Toast.fail("登录失败，请检查用户名与密码");
-    console.log('触发事件2')
-
-  }
-
-
-  testToast = () => {
-    message.error('123123123');
-  }
-
-
-
   //界面渲染
   render() {
     return (
@@ -207,6 +191,8 @@ export default class Home extends React.Component {
             <div id="main" style={{ width: '100%', height: 240 }}></div>
           </Card.Body>
         </Card>
+
+
       </div >
     )
   }

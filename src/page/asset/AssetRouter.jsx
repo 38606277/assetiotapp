@@ -33,6 +33,13 @@ const AssetDetail = Loadable({
     delay: 3000
 });
 
+const AssetAlarmList = Loadable({
+    loader: () => import(/* webpackChunkName: "AssetList" */ './AssetAlarmList.jsx'),
+    loading: loading,
+    delay: 3000
+});
+
+
 const SVGTest = Loadable({
     loader: () => import(/* webpackChunkName: "SVGTest" */ './SVGTest.jsx'),
     loading: loading,
@@ -53,6 +60,7 @@ export default class AssetRouter extends React.Component {
                 <Route path="/Asset/AssetScan" component={AssetScan} />
                 <Route path="/Asset/AssetList" component={AssetList} />
                 <Route path="/Asset/AssetDetail/:action/:id" component={AssetDetail} />
+                <Route path="/Asset/AssetAlarmList" component={AssetAlarmList} />
                 <Route path="/Asset/ToastExample" component={ToastExample} />
             </Switch>
         )

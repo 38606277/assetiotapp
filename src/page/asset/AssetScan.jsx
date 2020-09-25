@@ -9,6 +9,7 @@ import HexUtils from '../../common/HexUtils.jsx'
 import { Base64 } from 'js-base64';
 import { parseFromBytes, uint8ArrayToString } from '../../common/ScanRecordUtil.js'
 
+import ScanWidget from '../../util/scan/ScanWidget.jsx'
 
 class AssetScan extends React.Component {
 
@@ -25,6 +26,7 @@ class AssetScan extends React.Component {
         }
     }
     componentDidMount() {
+
     }
 
     /**
@@ -518,7 +520,7 @@ class AssetScan extends React.Component {
                 >
                     <span style={{ color: 'white' }}>扫描资产</span>
                 </NavBar>
-
+                <ScanWidget />
                 <Button onClick={() => {
                     this.startScanBluetoothAndroid();
                 }}> 开始扫描 </Button>
@@ -534,6 +536,8 @@ class AssetScan extends React.Component {
                     设备列表( <span style={{ color: "green" }}>{this.state.isScaning ? '正在扫描' : '停止扫描'}</span>):<br />
                     {devicesListUI}
                 </div>
+
+
             </div >
         )
     }

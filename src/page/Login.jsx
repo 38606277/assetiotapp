@@ -4,7 +4,7 @@ import 'antd-mobile/dist/antd-mobile.css';
 
 import User from '../service/user-service.jsx'
 import LocalStorge from '../util/LogcalStorge.jsx';
-
+import HttpService from '../util/HttpService.jsx';
 const _user = new User();
 
 
@@ -18,7 +18,6 @@ export default class Login extends React.Component {
     this.state = {
       UserCode: '',
       Pwd: '',
-      // redirect: _mm.getUrlParam('redirect') || '/'
     }
   }
   // componentWillMount() {
@@ -42,36 +41,40 @@ export default class Login extends React.Component {
   }
   // 当用户提交表单
   onSubmit() {
-    let loginInfo = {
+    const loginInfo = {
       UserCode: this.state.UserCode,
       Pwd: this.state.Pwd,// "KfTaJa3vfLE=",
-      //password : "admin",
-      import: "",
-      isAdmin: ""
-    },
-      checkResult = _user.checkLoginInfo(loginInfo);
+      import: "1",
+      isAdmin: "1"
+    }
+    const checkResult = _user.checkLoginInfo(loginInfo);
     checkResult.states = true;
     // 验证通过
     if (checkResult.status) {
-      _user.encodePwd(loginInfo.Pwd).then((response) => {
-        loginInfo.Pwd = response.encodePwd;
-        _user.login(loginInfo).then((response) => {
-          localStorge.setStorage('userInfo', response.data);
-          window.location.href = "#/Home";
-          // this.props.history.push(this.state.redirect);
-        }, (errMsg) => {
-          localStorge.errorTips(errMsg);
-        });
-      }, (errMsg) => {
-        localStorge.errorTips(errMsg);
-      });
 
+      HttpService.post('/reportServer/user/encodePwd', loginInfo.Pwd)
+        .then(response => {
+          loginInfo.Pwd = response.encodePwd;
+          HttpService.post('/reportServer/user/Reactlogin', JSON.stringify(loginInfo)).then(response => {
+            if (undefined != response.data && null != response.data) {
+              let datas = response.data;
+              localStorge.setStorage('userInfo', datas);
+              window.location.href = "#/Home";
+            } else {
+              localStorge.errorTips("登录失败，请检查用户名与密码");
+            }
+          }).catch((error) => {
+            localStorge.errorTips("登录失败，请检查用户名与密码");
+          });
+        }).catch((error) => {
+          localStorge.errorTips("登录失败，请检查用户名与密码");
+        });
     }
     // 验证不通过
     else {
-      localStorge.errorTips(checkResult.msg);
-    }
+      localStorge.errorTips("登录失败，请检查用户名与密码");
 
+    }
   }
   //界面渲染
   render() {

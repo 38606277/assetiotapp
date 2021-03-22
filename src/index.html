@@ -40,10 +40,10 @@
 
         function getServerUrl() {
             let hostname = "";
-            let configInfo = getStorage('configInfo');
-            if (undefined != configInfo && null != configInfo && '' != configInfo) {
-                hostname = configInfo.hostname;
-            }
+           // let configInfo = getStorage('configInfo');
+            // if (undefined != configInfo && null != configInfo && '' != configInfo) {
+            //     hostname = configInfo.hostname;
+            // }
             console.log('configInfo.hostname', hostname)
             if (hostname == typeof "undefined" || hostname == null || hostname == "") {//为空则自动获取
                 if (location.hostname) {
@@ -73,7 +73,7 @@
         type="text/javascript"></script>
     <script>
         var vConsole = new VConsole();
-    </script>
+    </script> -->
 
     <script src="cordova.js"></script> -->
 

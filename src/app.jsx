@@ -1,10 +1,13 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { HashRouter as Router, Route, Switch } from 'react-router-dom';
+import { HashRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import Loadable from 'react-loadable';
 import loading from './common/loading.jsx'
 import './app.css'
+
+import LocalStorge from './util/LogcalStorge.jsx';
+const localStorge = new LocalStorge();
 
 import { Button, Icon, Toast } from 'antd-mobile';
 
@@ -115,6 +118,42 @@ const AssetRouter = Loadable({
 });
 
 
+const LayoutRouter = (nextState, replace) => {
+    console.log('LayoutRouter')
+    if (undefined != localStorge.getStorage('userInfo') && '' != localStorge.getStorage('userInfo')) {
+        return (
+
+            <Switch>
+                <Route exact path="/" component={Home} />
+                <Route path="/ListUser" component={ListUser} />
+                <Route path="/Main" component={Main} />
+                <Route path="/Home" component={Home} />
+                <Route path="/AI" component={AI} />
+                <Route path="/Chat" component={Chat} />
+                <Route path="/My" component={My} />
+                <Route path="/Query" component={QueryClassList} />
+                <Route path="/QueryList/:class_id" component={QueryList} />
+                <Route path="/QueryInParam/:class_id/:qry_id" component={QueryInParam} />
+                <Route path="/QueryResult/:class_id/:qry_id/:inParam" component={QueryResult} />
+                <Route path="/AddUser" component={Loadable({
+                    loader: () => import('./page/AddUser.jsx'),
+                    loading: loading
+                })} />
+                <Route path="/UserPayList" component={UserPayList} />
+                <Route path="/UserBill" component={UserBill} />
+                <Route path="/IndexSearch" component={IndexSearch} />
+                <Route path="/UploadInfo" component={UploadInfo} />
+                <Route path="/Demo" component={Demo} />
+                {/* <Route path="/AssetList" component={AssetList} /> */}
+                <Route path="/Asset" component={AssetRouter} />
+            </Switch>
+
+        )
+    } else {
+        return (<Redirect to="/Login" />);
+    }
+}
+
 
 class App extends React.Component {
 
@@ -126,42 +165,16 @@ class App extends React.Component {
     //  }
 
     render() {
-        let LayoutRouter = (
-            <Layout>
-                <Switch>
-                    <Route exact path="/" component={Login} />
-                    <Route path="/ListUser" component={ListUser} />
-                    <Route path="/Main" component={Main} />
-                    <Route path="/Home" component={Home} />
-                    <Route path="/AI" component={AI} />
-                    <Route path="/Chat" component={Chat} />
-                    <Route path="/My" component={My} />
-                    <Route path="/Query" component={QueryClassList} />
-                    <Route path="/QueryList/:class_id" component={QueryList} />
-                    <Route path="/QueryInParam/:class_id/:qry_id" component={QueryInParam} />
-                    <Route path="/QueryResult/:class_id/:qry_id/:inParam" component={QueryResult} />
-                    <Route path="/Login" component={Login} />
-                    <Route path="/AddUser" component={Loadable({
-                        loader: () => import('./page/AddUser.jsx'),
-                        loading: loading
-                    })} />
-                    <Route path="/UserPayList" component={UserPayList} />
-                    <Route path="/UserBill" component={UserBill} />
-                    <Route path="/IndexSearch" component={IndexSearch} />
-                    <Route path="/UploadInfo" component={UploadInfo} />
-                    <Route path="/Demo" component={Demo} />
-                    {/* <Route path="/AssetList" component={AssetList} /> */}
-                    <Route path="/Setting" component={Setting} />
-
-                    <Route path="/Asset" component={AssetRouter} />
-                </Switch>
-            </Layout>
-        );
+        console.log('LayoutRouter')
         return (
             <Router>
-                <Switch>
-                    <Route path="/" render={props => LayoutRouter} />
-                </Switch>
+                <Layout>
+                    <Switch>
+                        <Route path="/Setting" component={Setting} />
+                        <Route path="/Login" component={Login} />
+                        <Route path="/" render={LayoutRouter} />
+                    </Switch>
+                </Layout>
             </Router>
         )
     }

@@ -19,13 +19,20 @@ class WxTabBar extends PureComponent {
       selectedTab: tab
     })
   }
+  componentDidMount() {
+    this.switchTable();
+  }
 
   // 监听 props 的变化
   componentWillReceiveProps(nextProps) {
+    this.switchTable();
+  }
+
+  switchTable() {
     let pathName = window.location.href.split('#')[1] || '';
     //let pathName = nextProps.location.pathname;
     console.log('pathName', pathName)
-    if (pathName === '/Home') {
+    if (pathName === '/Home' || pathName === '/') {
       this.setState({
         hidden: false,
         selectedTab: "Home" //pathName.substring(1)
@@ -63,6 +70,7 @@ class WxTabBar extends PureComponent {
       }
     }
   }
+
 
   render() {
     return (

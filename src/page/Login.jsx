@@ -61,18 +61,18 @@ export default class Login extends React.Component {
               localStorge.setStorage('userInfo', datas);
               window.location.href = "#/Home";
             } else {
-              localStorge.errorTips("登录失败，请检查用户名与密码");
+              localStorge.errorTips("登录失败，用户异常");
             }
           }).catch((error) => {
             localStorge.errorTips("登录失败，请检查用户名与密码");
           });
         }).catch((error) => {
-          localStorge.errorTips("登录失败，请检查用户名与密码");
+          localStorge.errorTips("登录失败，密码加密失败");
         });
     }
     // 验证不通过
     else {
-      localStorge.errorTips("登录失败，请检查用户名与密码");
+      localStorge.errorTips("登录失败，请检查用户名和密码");
 
     }
   }

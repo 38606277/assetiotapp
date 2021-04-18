@@ -275,6 +275,8 @@ class AssetMapGaoDe extends React.Component {
                             {this.state.assetList.map((item, index) => (
                                 <Item key={index}>
                                     <div style={{ fontSize: '15px' }}>
+
+                                        <span style={{ width: '100%', height: 'auto', whiteSpace: 'normal' }}>资产名称：{item.asset_name}</span><br />
                                         资产标签：{item.asset_tag}<br />
                                                                 物联网标签：{item.iot_num}<br />
                                                                 资产原值：{item.cost}<br />

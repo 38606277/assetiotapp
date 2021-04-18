@@ -195,7 +195,7 @@ class AssetAlarmList extends React.Component {
                     mode="light"
                     style={{ backgroundColor: 'rgb(79,188,242)', color: 'rgb(255,255,255)' }}
                 >
-                    <span style={{ color: 'white' }}>资产报警</span>
+                    <span style={{ color: 'white' }}>资产预警</span>
                 </NavBar>
 
                 <SearchBar

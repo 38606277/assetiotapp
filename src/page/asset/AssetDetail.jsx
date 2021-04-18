@@ -1,10 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { SearchBar, List, WhiteSpace, WingBlank, Checkbox, SwipeAction, Switch, NavBar, Icon, InputItem, Toast, Button, ImagePicker } from 'antd-mobile';
-import { Widget, addResponseMessage, toggleWidget, dropMessages, addLinkSnippet, addUserMessage, renderCustomComponent } from 'react-chat-widget';
-import 'antd-mobile/dist/antd-mobile.css';
+
+import { List, NavBar, Icon, InputItem, Toast, ImagePicker } from 'antd-mobile';
+
 import HttpService from '../../util/HttpService.jsx';
-import { result } from 'lodash';
 import { createForm } from 'rc-form';
 import './AssetDetail.css';
 
@@ -39,8 +37,10 @@ class AssetDetail extends React.Component {
                         ],
                     })
                 }
-                else
-                    Toast.error(res.message);
+                else {
+                    // Toast.error(res.message);
+                }
+
 
             });
 
@@ -58,14 +58,15 @@ class AssetDetail extends React.Component {
         HttpService.post("reportServer/asset/UpdateAsset", JSON.stringify(formInfo))
             .then(res => {
                 if (res.resultCode == "1000") {
-                    Toast.success(`报错成功！`)
+                    //Toast.success(`报错成功！`)
+                    window.location.href = "#/Asset/AssetList"
                 }
                 else {
-                    Toast.error(res.message);
+                    //Toast.error(res.message);
                 }
 
             });
-        window.location.href = "#/Asset/AssetList"
+
     }
 
     onChange = (files, type, index) => {
@@ -80,7 +81,7 @@ class AssetDetail extends React.Component {
     };
 
     //上传图片
-    async uploadAssetImg(files) {
+    uploadAssetImg(files) {
         let newFiles = [];
 
         for (let key in files) {
@@ -89,7 +90,7 @@ class AssetDetail extends React.Component {
             } else {
                 let formData = new FormData();
                 formData.append("file", files[key].file);
-                await HttpService.post("/reportServer/uploadAssetImg/uploadAssetImg", formData).then(response => {
+                HttpService.post("/reportServer/uploadAssetImg/uploadAssetImg", formData).then(response => {
                     console.log("上传结果：", response)
                     if (response.resultCode == '1000') {
                         console.log("上传成功：", response.data)
@@ -99,11 +100,11 @@ class AssetDetail extends React.Component {
                             fileName: response.data.fileName
                         });
                     } else {
-                        Toast.fail(response.message)
+                        //Toast.fail(response.message)
                     }
 
                 }).catch((err) => {
-                    Toast.fail(err)
+                    //Toast.fail(err)
                 });
             }
         }

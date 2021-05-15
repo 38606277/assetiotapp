@@ -1,5 +1,5 @@
 import React from 'react';
-import { List, WhiteSpace, Checkbox, Button, NavBar, Icon, InputItem } from 'antd-mobile';
+import { List, WhiteSpace, Checkbox, Button, NavBar, Icon, InputItem, Toast } from 'antd-mobile';
 import 'antd-mobile/dist/antd-mobile.css';
 
 import User from '../service/user-service.jsx'
@@ -61,18 +61,19 @@ export default class Login extends React.Component {
               localStorge.setStorage('userInfo', datas);
               window.location.href = "#/Home";
             } else {
-              localStorge.errorTips("登录失败，用户异常");
+
+              Toast.fail("登录失败，用户异常");
             }
           }).catch((error) => {
-            localStorge.errorTips("登录失败，请检查用户名与密码");
+            Toast.fail("登录失败，请检查用户名与密码");
           });
         }).catch((error) => {
-          localStorge.errorTips("登录失败，密码加密失败");
+          Toast.fail("登录失败，密码加密失败");
         });
     }
     // 验证不通过
     else {
-      localStorge.errorTips("登录失败，请检查用户名和密码");
+      Toast.fail("登录失败，请检查用户名和密码");
 
     }
   }

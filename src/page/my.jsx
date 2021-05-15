@@ -177,13 +177,13 @@ export default class My extends React.Component {
 
         </List>
         <List >
-          <Item extra={'智能报表1.0'} onClick={() => {
+          <Item extra={'资产管理1.0'} onClick={() => {
           }}>关于</Item>
 
-          <Item onClick={() => {
+          {/* <Item onClick={() => {
             console.log(url)
             window.location.href = "#/Asset/AssetScan"
-          }}> 扫描资产</Item>
+          }}> 扫描资产</Item> */}
 
 
         </List>

@@ -38,7 +38,7 @@ class AssetDetail extends React.Component {
                     })
                 }
                 else {
-                    // Toast.error(res.message);
+                    Toast.error(res.message);
                 }
 
 
@@ -58,11 +58,11 @@ class AssetDetail extends React.Component {
         HttpService.post("reportServer/asset/UpdateAsset", JSON.stringify(formInfo))
             .then(res => {
                 if (res.resultCode == "1000") {
-                    //Toast.success(`报错成功！`)
+                    Toast.success(`保存成功！`)
                     window.location.href = "#/Asset/AssetList"
                 }
                 else {
-                    //Toast.error(res.message);
+                    Toast.fail(res.message);
                 }
 
             });
@@ -100,11 +100,11 @@ class AssetDetail extends React.Component {
                             fileName: response.data.fileName
                         });
                     } else {
-                        //Toast.fail(response.message)
+                        Toast.fail(response.message)
                     }
 
                 }).catch((err) => {
-                    //Toast.fail(err)
+                    Toast.fail(err)
                 });
             }
         }
